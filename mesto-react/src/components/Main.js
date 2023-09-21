@@ -4,10 +4,16 @@ export default function Main() {
     const handleButtonPlace = document.querySelector('.profile__button')
     handleButtonPlace.addEventListener('click', () => {
       const popupCard = document.querySelector('.popup-card')
-      popupCard.classList.add('.popup_opened')
+      popupCard.classList.add('popup_opened')
       console.log(popupCard)
     })
   }
+
+  // function handleEditProfileClick() {
+  //   const handleButtonProfile = document.querySelector('.popup-profile')
+  //   handleButtonProfile.addEventListener('click', () => {
+  //     const popupProfile = document.querySelector()
+  //   })
 
   return (
     <main className="main">
@@ -19,7 +25,7 @@ export default function Main() {
             <div className="profile__container">
                 <div className="profile__text">
                   <h1 className="profile__title">Жак-Ив Кусто</h1>
-                  <button type="button" aria-label="Редактировать профиль" className="profile__button-edit" onClick={handleAddPlaceClick}></button>
+                  <button type="button" aria-label="Редактировать профиль" className="profile__button-edit" onClick={handleAddPlaceClick()}></button>
                 </div>
               <p className="profile__subtitle">Исследователь океана</p>
             </div>
