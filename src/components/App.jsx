@@ -4,9 +4,6 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
-import EditProfilePopup from './EditProfilePopup'
-import AddPlacePopup from './AddPlacePopup'
-import EditAvatarPopup from './EditAvatarPopupOpen'
 
 function App() {
 
@@ -16,7 +13,6 @@ function App() {
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
-    console.log('open')
   }
 
   function handleAddPlaceClick() {
@@ -31,11 +27,10 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
-    console.log('close')
   }
 
-  function handleOverlayClick(evt) {
-    if (evt.target.classList.contains('popup')) {
+  function handleOverlayClick(event) {
+    if (event.target.classList.contains('popup')) {
       closeAllPopups()
     }
   }
@@ -43,25 +38,49 @@ function App() {
   return (
     <>
         <Header/>
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
-        <EditProfilePopup 
+
+        <Main 
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick} 
+        />
+
+        <Footer />
+
+        <PopupWithForm
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-        />
-        <AddPlacePopup 
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onCloseOverlay={handleOverlayClick}
-        />
+          title='Редактирование профиля'
+          >
+          
+          <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" value="Жак-Ив Кусто" name="name" required minlength="2" maxlength="40" id="name-input" />
+          <span className="popup__input-error name-input-error"></span>
+          <input type="text" placeholder="О себе" className="popup__input popup__input_edit_profile-info" value="Исследователь океана" name="about" required minlength="2" maxlength="200" id="info-input" />
+          <span className="popup__input-error info-input-error"></span>
+        </PopupWithForm>
 
-        <EditAvatarPopup
+        <PopupWithForm 
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onCloseOverlay={handleOverlayClick}
+          title='Новое место'
+          >
+            <input type="text" placeholder="Название" autocomplete="off" class="popup__input popup-card__input popup-card__input_edit_image-name" name="name" required minlength="2" maxlength="30" id="title-input" />
+            <span class="popup__input-error title-input-error"></span>
+            <input type="url" placeholder="Ссылка на картинку" class="popup__input popup-card__input popup-card__input_edit_image-url" name="link" required id="url-input" />
+            <span class="popup__input-error url-input-error"></span>
+        </PopupWithForm>
+
+        <PopupWithForm 
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-        />
-        <Footer />
-        <PopupWithForm />
+          title='Обновить профиль'
+          >
+          <input type="url" placeholder="Ссылка на аватар профиля" class="popup__input popup-avatar__input popup-avatar__input_edit_image-url" name="avatar" required id="avatar-input" />
+          <span class="popup__input-error avatar-input-error"></span>
+        </PopupWithForm>
       <template id="template-element" className="card">
           <div className="group__element">
               <img src="#" alt="#" className="group__image" />
