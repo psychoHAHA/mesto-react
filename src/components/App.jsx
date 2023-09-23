@@ -4,39 +4,53 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
+import EditProfilePopup from './EditProfilePopup'
+import AddPlacePopup from './AddPlacePopup'
 
 function App() {
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
 
   function handleEditProfileClick() {
-    const handleButtonProfile = document.querySelector('.profile__button-edit')
-    handleButtonProfile.addEventListener('click', () => {
-      const popupProfile = document.querySelector('.popup-profile')
-      popupProfile.classList.add('popup_opened')
-    })
+    setIsEditProfilePopupOpen(true)
+    console.log('open')
   }
 
   function handleAddPlaceClick() {
-    const handleButtonPlace = document.querySelector('.profile__button')
-    handleButtonPlace.addEventListener('click', () => {
-      const popupCard = document.querySelector('.popup-card')
-      popupCard.classList.add('popup_opened')
-    })
+    setIsAddPlacePopupOpen(true)
   }
 
   function handleEditAvatarClick() {
-    const handleButtonPlace = document.querySelector('.profile__avatar')
-    handleButtonPlace.addEventListener('click', () => {
-      const popupAvatar = document.querySelector('.popup-avatar')
-      popupAvatar.classList.add('popup_opened')
-    })
+    setIsEditAvatarPopupOpen(true)
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false)
+    console.log('close')
+  }
+
+  function handleOverlayClick(evt) {
+    if (evt.target.classList.contains('popup')) {
+      closeAllPopups()
+    }
   }
 
   return (
     <>
-        <Header />
-        <Main onAddPlace={handleAddPlaceClick} onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} />
+        <Header/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onCloseOverlay={handleOverlayClick}
+        />
+        <AddPlacePopup 
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onCloseOverlay={handleOverlayClick}
+        />
         <Footer />
         <PopupWithForm />
       <template id="template-element" className="card">

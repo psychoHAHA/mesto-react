@@ -1,21 +1,19 @@
+import React from "react"
+
 function PopupWithForm(props) {
   return (
     <>
-      <aside className="popup popup-profile">
-          <div className="popup__content popup-profile__content">
-              <button type="button" aria-label="Закрыть" className="popup__button-close popup-profile__button-close" onClick={() => setIsOpen(false)}></button>
-              <h2 className="popup__title popup-profile__title">Редактировать профиль</h2>
-              <form name="profile-form" className="popup__form popup-profile__form" noValidate>
-                  <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" name="name" required minLength="2" maxLength="40" id="name-input" />
-                  <span className="popup__input-error name-input-error"></span>
-                  <input type="text" placeholder="О себе" className="popup__input popup__input_edit_profile-info" name="about" required minLength="2" maxLength="200" id="info-input" />
-                  <span className="popup__input-error info-input-error"></span>
-                  <button aria-label="Сохранить изменения" type="submit" className="popup__button popup-profile__button button" disabled>Сохранить</button>
+      <aside className={`popup  ${props.isOpen ? "popup_opened" : ""}` } onClick={props.onCloseOverlay}>
+          <div className="popup__content">
+              <button type="button" aria-label="Закрыть" className="popup__button-close" onClick={props.onClose}></button>
+              <h2 className="popup__title">{props.title}</h2>
+              <form name="form" className="popup__form">
+                  <button aria-label="Сохранить изменения" type="submit" className="popup__button button">{props.buttonText}</button>
               </form>
           </div>
       </aside>
 
-      <aside className="popup popup-card">
+      {/* <aside className="popup popup-card">
           <div className="popup__content popup-card__content">
               <button type="button" aria-label="Закрыть" className="popup__button-close popup-card__button-close"></button>
               <h2 className="popup__title popup-card__title">Новое место</h2>
@@ -55,7 +53,7 @@ function PopupWithForm(props) {
                   <button aria-label="Сохранить" type="submit" className="popup__button popup-avatar__button button" disabled>Сохранить</button>
               </form>
           </div>
-      </aside>
+      </aside> */}
     </>
   )
 }

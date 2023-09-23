@@ -1,4 +1,6 @@
-export default function Main(props) {
+import React from 'react'
+
+function Main(props) {
   return (
     <main className="main">
       <section className="profile">
@@ -21,3 +23,5 @@ export default function Main(props) {
     </main>
   )
 }
+
+export default Main
