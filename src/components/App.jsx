@@ -6,6 +6,7 @@ import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
 import EditProfilePopup from './EditProfilePopup'
 import AddPlacePopup from './AddPlacePopup'
+import EditAvatarPopup from './EditAvatarPopupOpen'
 
 function App() {
 
@@ -28,6 +29,8 @@ function App() {
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
     console.log('close')
   }
 
@@ -40,7 +43,7 @@ function App() {
   return (
     <>
         <Header/>
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
         <EditProfilePopup 
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -50,6 +53,12 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
+        />
+
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onCloseOverlay={handleOverlayClick}
         />
         <Footer />
         <PopupWithForm />

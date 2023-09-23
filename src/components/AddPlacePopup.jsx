@@ -8,6 +8,10 @@ function AddPlacePopup(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
+    props.onAddPlace({
+      name: namePlace,
+      link: link,
+    })
   }
   useEffect(() => {
     setNamePlace('')
