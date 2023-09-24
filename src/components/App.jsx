@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState([])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -43,6 +44,9 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick} 
+          userName={currentUser.name}
+          userDecription={currentUser.about}
+          userAvatar={currentUser.avatar}
         />
 
         <Footer />
@@ -52,6 +56,7 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
           title='Редактирование профиля'
+          buttonText='Сохранить'
           >
           
           <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" value="Жак-Ив Кусто" name="name" required minlength="2" maxlength="40" id="name-input" />
@@ -65,6 +70,7 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
           title='Новое место'
+          buttonText='Создать'
           >
             <input type="text" placeholder="Название" autocomplete="off" class="popup__input popup-card__input popup-card__input_edit_image-name" name="name" required minlength="2" maxlength="30" id="title-input" />
             <span class="popup__input-error title-input-error"></span>
@@ -77,10 +83,12 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
           title='Обновить профиль'
+          buttonText='Сохранить'
           >
           <input type="url" placeholder="Ссылка на аватар профиля" class="popup__input popup-avatar__input popup-avatar__input_edit_image-url" name="avatar" required id="avatar-input" />
           <span class="popup__input-error avatar-input-error"></span>
         </PopupWithForm>
+        
       <template id="template-element" className="card">
           <div className="group__element">
               <img src="#" alt="#" className="group__image" />
