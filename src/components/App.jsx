@@ -5,12 +5,25 @@ import Main from './Main'
 import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
 
+import { api } from '../utils/Api'
+
 function App() {
+
+  const [userInfo, setUserInfo] = useState({})
+  const [cardList, setCardList] = useState([])
+
+  useEffect(() => {
+    Promise.all([api.getUserData(), api.getAllCards()])
+    .then(([user, cards]) => {
+      setUserInfo(user)
+      setCardList(cards)
+    })
+    .catch((err) => alert(err))
+  }, [])
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [currentUser, setCurrentUser] = useState([])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -38,15 +51,15 @@ function App() {
 
   return (
     <>
+        <div className='page'></div>
         <Header/>
 
         <Main 
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick} 
-          userName={currentUser.name}
-          userDecription={currentUser.about}
-          userAvatar={currentUser.avatar}
+          onEditAvatar={handleEditAvatarClick}
+          userInfo={userInfo}
+          cardList={cardList}
         />
 
         <Footer />
@@ -59,7 +72,7 @@ function App() {
           buttonText='Сохранить'
           >
           
-          <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" value="Жак-Ив Кусто" name="name" required minlength="2" maxlength="40" id="name-input" />
+          <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" value="Жак-Ив Кусто" name="name" required minLength="2" maxLength="40" id="name-input" />
           <span className="popup__input-error name-input-error"></span>
           <input type="text" placeholder="О себе" className="popup__input popup__input_edit_profile-info" value="Исследователь океана" name="about" required minlength="2" maxlength="200" id="info-input" />
           <span className="popup__input-error info-input-error"></span>
@@ -72,7 +85,7 @@ function App() {
           title='Новое место'
           buttonText='Создать'
           >
-            <input type="text" placeholder="Название" autocomplete="off" class="popup__input popup-card__input popup-card__input_edit_image-name" name="name" required minlength="2" maxlength="30" id="title-input" />
+            <input type="text" placeholder="Название" autocomplete="off" class="popup__input popup-card__input popup-card__input_edit_image-name" name="name" required minLength="2" maxLength="30" id="title-input" />
             <span class="popup__input-error title-input-error"></span>
             <input type="url" placeholder="Ссылка на картинку" class="popup__input popup-card__input popup-card__input_edit_image-url" name="link" required id="url-input" />
             <span class="popup__input-error url-input-error"></span>
