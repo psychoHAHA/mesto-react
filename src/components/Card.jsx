@@ -1,8 +1,6 @@
 import React from "react";
 
 function Card(props) {
-  // const {name, link, likes} = card
-
   function handleCardClick() {
     props.onCardClick(props.card)
   }
@@ -16,7 +14,7 @@ function Card(props) {
               <h2 className="group__title">{props.name}</h2>
               <div className="group__like-container">
                   <button type="button" aria-label="Отметить как понравившееся" className="group__button"></button>
-                  <p className="group__like-counter">{props.likes}</p>
+                  <p className="group__like-counter">{props.likes.length}</p>
               </div>
           </div>
       </div>

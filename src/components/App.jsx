@@ -63,17 +63,17 @@ function App() {
         <div className='page'></div>
         <Header/>
 
-        <Main 
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          userInfo={userInfo}
-          userName={userInfo.name}
-          userAbout={userInfo.about}
-          userAvatar={userInfo.avatar}
-          cards={cards}
-        />
+        
+      <Main 
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+        userName={userInfo.name}
+        userAbout={userInfo.about}
+        userAvatar={userInfo.avatar}
+        cards={cards}
+      />
 
         <Footer />
 

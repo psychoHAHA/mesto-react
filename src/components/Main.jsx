@@ -20,19 +20,19 @@ function Main(props) {
             </div>
             <button type="button" aria-label="Добавить изображение" className="profile__button" onClick={props.onAddPlace}></button>
           </section>
-              
-        <li className="group">
+        
+        <section className="group">
           {props.cards.map((card) => (
             <Card
               card={card} 
               key={card._id}
-              name={card.userName}
               link={card.link}
+              name={card.name}
               likes={card.likes}
               onCardClick={props.onCardClick}
             />
           ))}
-        </li>
+        </section>
       </main>
     </>
   )
