@@ -26,7 +26,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
-  const [selectedCard, setSelectedCard] = useState(false)
+  const [selectedCard, setSelectedCard] = useState({})
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -60,8 +60,8 @@ function App() {
 
   return (
     <>
-        <div className='page'></div>
-        <Header/>
+      <div className='page'></div>
+      <Header/>
 
         
       <Main 
