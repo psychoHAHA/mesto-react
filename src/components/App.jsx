@@ -5,6 +5,7 @@ import Main from './Main'
 import Footer from './Footer'
 import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 import { api } from '../utils/Api'
 
@@ -12,21 +13,21 @@ function App() {
 
   const [userInfo, setUserInfo] = useState({})
   const [cards, setCards] = useState([])
-
-  useEffect(() => {
-    Promise.all([api.getUserData(), api.getAllCards()])
-    .then(([user, cards]) => {
-      setUserInfo(user)
-      setCards(cards)
-    })
-    .catch((err) => alert(err))
-  }, [])
-
+  const [currentUser, setCurrentUser] = useState({})
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
+
+  useEffect(() => {
+    Promise.all([api.getUserData(), api.getAllCards()])
+    .then(([user, cards]) => {
+      setCurrentUser(user)
+      setCards(cards)
+    })
+    .catch((err) => alert(err))
+  }, [])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -59,7 +60,8 @@ function App() {
   }
 
   return (
-    <>
+
+    <CurrentUserContext.Provider value={currentUser}>
       <div className='page'></div>
       <Header/>
 
@@ -120,7 +122,7 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
         />
-    </>
+    </CurrentUserContext.Provider>
   )
 }
 export default App;
