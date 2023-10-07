@@ -86,7 +86,15 @@ function App() {
       setCurrentUser(res)
       closeAllPopups()
     })
-  } 
+  }
+
+  function handleAddPlaceSubmit(value) {
+    api.getAllCards(value)
+    .then((newCard) => {
+      setCards([newCard, ...cards])
+      closeAllPopups()
+    })
+  }
 
   function handleCardDelete(card) {
 
@@ -129,13 +137,14 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-          onUpdateAvatar={handleUpdateAvatar}
+          onAddPlace={handleAddPlaceSubmit}
         />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         <ImagePopup 
