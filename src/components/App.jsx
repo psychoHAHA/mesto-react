@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../pages/index.css'
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import PopupWithForm from './PopupWithForm'
 import ImagePopup from './ImagePopup'
+import EditProfilePopup from './EditProfilePopup'
+import AddPlacePopup from './AddPlacePopup'
+import EditAvatarPopup from './EditAvatarPopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 import { api } from '../utils/Api'
@@ -59,6 +61,41 @@ function App() {
     setIsImagePopupOpen(true)
   }
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.handleLike(card._id, isLiked)
+    .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+
+  function handleUpdateUser(value) {
+    api.changeUserData(value)
+    .then((res) => {
+      setCurrentUser(res)
+      closeAllPopups()
+    })
+  }
+
+  function handleUpdateAvatar(value) {
+    api.changeAvatarData(value)
+    .then((res) => {
+      setCurrentUser(res)
+      closeAllPopups()
+    })
+  } 
+
+  function handleCardDelete(card) {
+
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id))
+    })
+  }
+
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
@@ -66,11 +103,13 @@ function App() {
       <Header/>
 
         
-      <Main 
+      <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
         userName={userInfo.name}
         userAbout={userInfo.about}
         userAvatar={userInfo.avatar}
@@ -79,43 +118,26 @@ function App() {
 
         <Footer />
 
-        <PopupWithForm
+        <EditProfilePopup 
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-          title='Редактирование профиля'
-          buttonText='Сохранить'
-          >
-          
-          <input type="text" placeholder="Имя" className="popup__input popup__input_edit_profile-name" name="name" required minLength="2" maxLength="40" id="name-input" />
-          <span className="popup__input-error name-input-error"></span>
-          <input type="text" placeholder="О себе" className="popup__input popup__input_edit_profile-info" name="about" required minLength="2" maxLength="200" id="info-input" />
-          <span className="popup__input-error info-input-error"></span>
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
 
-        <PopupWithForm 
+        <AddPlacePopup 
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-          title='Новое место'
-          buttonText='Создать'
-          >
-            <input type="text" placeholder="Название" autoComplete="off" className="popup__input popup-card__input popup-card__input_edit_image-name" name="name" required minLength="2" maxLength="30" id="title-input" />
-            <span className="popup__input-error title-input-error"></span>
-            <input type="url" placeholder="Ссылка на картинку" className="popup__input popup-card__input popup-card__input_edit_image-url" name="link" required id="url-input" />
-            <span className="popup__input-error url-input-error"></span>
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
-        <PopupWithForm 
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleOverlayClick}
-          title='Обновить профиль'
-          buttonText='Сохранить'
-          >
-          <input type="url" placeholder="Ссылка на аватар профиля" className="popup__input popup-avatar__input popup-avatar__input_edit_image-url" name="avatar" required id="avatar-input" />
-          <span className="popup__input-error avatar-input-error"></span>
-        </PopupWithForm>
+        />
+
         <ImagePopup 
           card={selectedCard}
           isOpen={isImagePopupOpen}

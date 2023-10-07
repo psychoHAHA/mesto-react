@@ -65,19 +65,27 @@ export default class Api {
     }).then(this._getResponse)
   }
 
-  handleLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: 'PUT',
-      headers: this._headers,
-    }).then(this._getResponse)
-  }
-
-  deleteLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: this._headers,
-    }).then(this._getResponse)
+  handleLike(cardId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._url}/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: this._headers,
+      }).then(this._getResponse)
+    } else {
+      return fetch(`${this._url}/cards/${cardId}/likes`, {
+        method: 'PUT',
+        headers: this._headers,
+      }).then(this._getResponse)
+    }
   }
 }
 
-export const api = new Api(apiConfig)
+  export const api = new Api(apiConfig)
+
+//   deleteLike(cardId) {
+//     return fetch(`${this._url}/cards/${cardId}/likes`, {
+//       method: 'DELETE',
+//       headers: this._headers,
+//     }).then(this._getResponse)
+//   }
+// }

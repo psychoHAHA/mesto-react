@@ -7,6 +7,8 @@ function Main({
   onEditProfile,
   onAddPlace,
   onCardClick,
+  onCardLike,
+  onCardDelete,
   cards
   }) {
 
@@ -39,6 +41,8 @@ function Main({
             name={card.name}
             likes={card.likes}
             onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
           />
         ))}
       </section>
