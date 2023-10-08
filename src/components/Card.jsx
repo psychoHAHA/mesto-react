@@ -25,7 +25,7 @@ function Card({
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <>
       <div className="group__element">
           <img src={card.link} alt={card.name} className="group__image" onClick={handleCardClick} />
           {isOwn && <button className="group__button-delete" type="button" aria-label="Удалить" onClick={handleCardDelete}></button>}
@@ -37,7 +37,7 @@ function Card({
               </div>
           </div>
       </div>
-    </CurrentUserContext.Provider>
+    </>
   )
 }
 

@@ -89,7 +89,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit(value) {
-    api.getAllCards(value)
+    api.createCard(value)
     .then((newCard) => {
       setCards([newCard, ...cards])
       closeAllPopups()
