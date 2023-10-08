@@ -78,6 +78,7 @@ function App() {
       setCurrentUser(res)
       closeAllPopups()
     })
+    .catch((err) => alert(err))
   }
 
   function handleUpdateAvatar(value) {
@@ -86,6 +87,7 @@ function App() {
       setCurrentUser(res)
       closeAllPopups()
     })
+    .catch((err) => alert(err))
   }
 
   function handleAddPlaceSubmit(value) {
@@ -94,6 +96,7 @@ function App() {
       setCards([newCard, ...cards])
       closeAllPopups()
     })
+    .catch((err) => alert(err))
   }
 
   function handleCardDelete(card) {
@@ -102,6 +105,7 @@ function App() {
     .then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id))
     })
+    .catch((err) => alert(err))
   }
 
   return (
