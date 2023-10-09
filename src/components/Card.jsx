@@ -14,7 +14,6 @@ function Card({
 
   const currentUser = React.useContext(CurrentUserContext)
   const isOwn = card.owner._id === currentUser._id
-  console.log(isOwn);
   const isLiked = card.likes.some(i => i._id === currentUser._id)
   const cardLikeButtonClassName = ( 
     `group__button ${isLiked && 'group__button_active'}` 
@@ -25,7 +24,7 @@ function Card({
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <>
       <div className="group__element">
           <img src={card.link} alt={card.name} className="group__image" onClick={handleCardClick} />
           {isOwn && <button className="group__button-delete" type="button" aria-label="Удалить" onClick={handleCardDelete}></button>}
@@ -37,7 +36,7 @@ function Card({
               </div>
           </div>
       </div>
-    </CurrentUserContext.Provider>
+    </>
   )
 }
 
